@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Aucword</title>
+  <meta name="description" content="Aucword Privacy Policy" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #151929;
+      --navy-light: #1e2540;
+      --navy-card: #1c2238;
+      --navy-lighter: #252d4a;
+      --lavender: #c5b8f5;
+      --peach: #f5c5a0;
+      --white: #ffffff;
+      --white-60: rgba(255,255,255,0.6);
+      --white-10: rgba(255,255,255,0.08);
+      --white-30: rgba(255,255,255,0.3);
+      --font: 'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(21,25,41,0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--white-10);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-mark {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--lavender), var(--peach));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--navy);
+    }
+
+    .nav-logo span {
+      font-size: 18px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--lavender), var(--peach));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-back {
+      font-size: 14px;
+      color: var(--white-60);
+      text-decoration: none;
+    }
+
+    .nav-back:hover { color: var(--white); }
+
+    /* PAGE */
+    .page-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 40px 100px;
+    }
+
+    .page-header { margin-bottom: 48px; }
+
+    .page-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lavender);
+      margin-bottom: 12px;
+    }
+
+    .page-title {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .page-meta {
+      font-size: 14px;
+      color: var(--white-30);
+    }
+
+    .section-block {
+      margin-bottom: 36px;
+    }
+
+    .section-block h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      padding-top: 12px;
+    }
+
+    .section-block p {
+      font-size: 16px;
+      color: var(--white-60);
+      margin-bottom: 14px;
+    }
+
+    ul { list-style: none; margin-bottom: 14px; }
+
+    ul li {
+      font-size: 16px;
+      color: var(--white-60);
+      padding: 6px 0 6px 20px;
+      position: relative;
+    }
+
+    ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--lavender);
+      opacity: 0.6;
+    }
+
+    a {
+      color: var(--lavender);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .highlight-box {
+      background: var(--navy-card);
+      border: 1px solid var(--white-10);
+      border-left: 3px solid var(--lavender);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+
+    .highlight-box p {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--white-10);
+      margin: 48px 0;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--white-10);
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    footer p { font-size: 13px; color: var(--white-60); margin: 0; }
+    footer a { font-size: 13px; color: var(--white-60); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      nav { padding: 14px 20px; }
+      .page-wrap { padding: 40px 20px 80px; }
+      footer { justify-content: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-mark">A</div>
+    <span>Aucword</span>
+  </a>
+  <a href="/" class="nav-back">
+    &larr; Back to home
+  </a>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-header">
+    <div class="page-label">Legal</div>
+    <h1 class="page-title">Privacy Policy</h1>
+    <p class="page-meta">Last updated: March 2026</p>
+  </div>
+
+  <div class="highlight-box">
+    <p>The short version: Aucword does not sell your data. We collect only what's needed to make the app work, and we don't share it with advertisers or third parties for marketing purposes.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>1. Who We Are</h2>
+    <p>Aucword ("we," "us," or "our") is an iOS application that helps you track eBay auctions in real time. This Privacy Policy explains how we collect, use, and protect information when you use our app and website at aucword.com.</p>
+    <p>If you have questions, contact us at <a href="mailto:hi@aucword.com">hi@aucword.com</a>.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>2. Information We Collect</h2>
+    <p>We collect information in two ways: information you provide to us, and information collected automatically when you use the app.</p>
+
+    <p><strong style="color:var(--white);">Information you provide:</strong></p>
+    <ul>
+      <li>Your eBay account credentials via OAuth (we never see or store your eBay password)</li>
+      <li>Your Apple ID or email address if you create an Aucword account</li>
+      <li>Watchlist items and alert preferences you configure in the app</li>
+    </ul>
+
+    <p><strong style="color:var(--white);">Information collected automatically:</strong></p>
+    <ul>
+      <li>Device type, iOS version, and app version for crash reporting</li>
+      <li>In-app events (e.g., watchlist additions, notification taps) to understand how the app is used — this data is anonymized and aggregated</li>
+      <li>Push notification token so we can deliver alerts to your device</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h2>3. How We Use Your Information</h2>
+    <p>We use the information we collect to:</p>
+    <ul>
+      <li>Sync your eBay watchlist and display auction data in the app</li>
+      <li>Send you push notifications about ending auctions and price alerts</li>
+      <li>Keep the home screen widget updated with your latest watchlist</li>
+      <li>Diagnose bugs and improve app performance</li>
+      <li>Respond to your support requests</li>
+    </ul>
+    <p>We do not use your information to serve you ads. We do not sell your data to anyone.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>4. eBay Data</h2>
+    <p>Aucword connects to eBay's API on your behalf using OAuth. This means you authorize Aucword to read your watchlist and buying activity — we never receive or store your eBay password.</p>
+    <p>The eBay data we access (item listings, prices, end times, bid counts) is used solely to power the app experience. We cache this data temporarily on our servers to keep the app fast and the widget updated. We do not share eBay data with any third parties.</p>
+    <p>You can revoke Aucword's access to your eBay account at any time via your <a href="https://www.ebay.com/myb/PurchaseHistory" target="_blank" rel="noopener">eBay account settings</a>.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>5. Push Notifications</h2>
+    <p>Aucword uses Apple Push Notification service (APNs) to deliver alerts about ending auctions and price targets. Your device push token is stored securely on our servers and used only to send you notifications you've opted into.</p>
+    <p>You can disable push notifications at any time in iOS Settings &rarr; Aucword &rarr; Notifications.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>6. Data Storage and Security</h2>
+    <p>Your data is stored on servers provided by Supabase, hosted in the United States. We use industry-standard encryption (TLS) for data in transit and at rest.</p>
+    <p>We retain your data for as long as your account is active. If you delete your account, we delete your personal data within 30 days, except where we're required to retain it by law.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>7. Third-Party Services</h2>
+    <p>Aucword uses a small number of third-party services to operate:</p>
+    <ul>
+      <li><strong style="color:var(--white);">Supabase</strong> — database and backend infrastructure</li>
+      <li><strong style="color:var(--white);">Apple APNs</strong> — push notification delivery</li>
+      <li><strong style="color:var(--white);">eBay API</strong> — auction data</li>
+      <li><strong style="color:var(--white);">Pendo</strong> — anonymized in-app analytics</li>
+    </ul>
+    <p>Each of these services has its own privacy policy. We do not share personally identifiable information with analytics providers.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>8. Children's Privacy</h2>
+    <p>Aucword is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, please contact us and we will delete it promptly.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>9. Your Rights</h2>
+    <p>Depending on where you live, you may have the right to:</p>
+    <ul>
+      <li>Access the personal data we hold about you</li>
+      <li>Request correction of inaccurate data</li>
+      <li>Request deletion of your data</li>
+      <li>Opt out of analytics collection</li>
+    </ul>
+    <p>To exercise any of these rights, email us at <a href="mailto:hi@aucword.com">hi@aucword.com</a>. We'll respond within 30 days.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>10. California Privacy Rights (CCPA)</h2>
+    <p>If you are a California resident, you have the right to know what personal information we collect, disclose, and sell (we don't sell any). You also have the right to request deletion and to opt out of sale (again, we don't sell). To submit a request, email <a href="mailto:hi@aucword.com">hi@aucword.com</a>.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>11. Affiliate Disclosure</h2>
+    <p>Aucword participates in the eBay Partner Network. This means we may earn a small commission when you click through the app to eBay and make a purchase. This does not affect the price you pay, and it does not influence which items or auctions are shown to you. Affiliate participation helps support the ongoing development of the app.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>12. Changes to This Policy</h2>
+    <p>We may update this privacy policy from time to time. We'll notify you of any significant changes via in-app notification or email. The "last updated" date at the top of this page reflects the most recent revision.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>13. Contact</h2>
+    <p>If you have any questions about this privacy policy or your data, please contact us:</p>
+    <p>Email: <a href="mailto:hi@aucword.com">hi@aucword.com</a></p>
+  </div>
+
+</div>
+
+<footer>
+  <p>&copy; 2026 Aucword. All rights reserved.</p>
+  <a href="/">Home</a>
+</footer>
+
+</body>
+</html>
