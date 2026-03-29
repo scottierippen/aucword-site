@@ -9,6 +9,30 @@
   <meta name="description" content="Aucword's privacy policy. We don't sell your data. Learn how we collect, use, and protect your information.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://aucword.com/privacy">
+
+  <!-- Pendo Analytics -->
+  <script>
+    (function(apiKey) {
+      (function(p,e,n,d,o){var v,w,x,y,z;o=p[d]=p[d]||{};o._q=o._q||[];
+      v=['initialize','identify','updateOptions','pageLoad','track'];
+      for(w=0,x=v.length;w<x;++w)(function(m){
+        o[m]=o[m]||function(){o._q[m===v[0]?'unshift':'push']([m].concat([].slice.call(arguments,0)));};
+      })(v[w]);
+        y=e.createElement(n);y.async=!0;y.src='https://cdn.pendo.io/agent/static/'+apiKey+'/pendo.js';
+        z=e.getElementsByTagName(n)[0];z.parentNode.insertBefore(y,z);
+      })(window,document,'script','pendo');
+
+      pendo.initialize({
+        visitor: {
+          id: 'anon-' + Math.random().toString(36).substr(2, 9)
+        },
+        account: {
+          id: 'aucword-site'
+        }
+      });
+    })('257ea951-6905-4a25-a9de-7faf1d86068c');
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />

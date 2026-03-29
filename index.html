@@ -448,6 +448,29 @@
     ]
   }
   </script>
+
+  <!-- Pendo Analytics -->
+  <script>
+    (function(apiKey) {
+      (function(p,e,n,d,o){var v,w,x,y,z;o=p[d]=p[d]||{};o._q=o._q||[];
+      v=['initialize','identify','updateOptions','pageLoad','track'];
+      for(w=0,x=v.length;w<x;++w)(function(m){
+        o[m]=o[m]||function(){o._q[m===v[0]?'unshift':'push']([m].concat([].slice.call(arguments,0)));};
+      })(v[w]);
+        y=e.createElement(n);y.async=!0;y.src='https://cdn.pendo.io/agent/static/'+apiKey+'/pendo.js';
+        z=e.getElementsByTagName(n)[0];z.parentNode.insertBefore(y,z);
+      })(window,document,'script','pendo');
+
+      pendo.initialize({
+        visitor: {
+          id: 'anon-' + Math.random().toString(36).substr(2, 9)
+        },
+        account: {
+          id: 'aucword-site'
+        }
+      });
+    })('257ea951-6905-4a25-a9de-7faf1d86068c');
+  </script>
 </head>
 <body>
 
@@ -477,7 +500,7 @@
   </p>
 
   <div class="hero-ctas">
-    <div class="btn-coming-soon">
+    <div class="btn-coming-soon" id="cta-hero" onclick="trackCTA('hero')">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M14.05 10.9c-.02-2.03 1.66-3.01 1.74-3.06-0.95-1.38-2.42-1.57-2.94-1.59-1.26-.13-2.46.74-3.1.74-.64 0-1.63-.72-2.68-.7-1.38.02-2.66.8-3.37 2.03-1.44 2.49-.37 6.18 1.04 8.2.69 1 1.51 2.11 2.59 2.07 1.04-.04 1.43-.67 2.69-.67 1.25 0 1.61.67 2.71.65 1.12-.02 1.83-1.01 2.51-2.02.8-1.16 1.12-2.29 1.14-2.35-.03-.01-2.2-.84-2.23-3.3zM11.97 4.77c.57-.69.96-1.65.85-2.6-.82.03-1.82.54-2.4 1.22-.53.6-.99 1.57-.87 2.5.92.07 1.86-.46 2.42-1.12z"/></svg>
       Coming Soon
     </div>
@@ -545,7 +568,7 @@
   <h2>Your next win is<br/><em style="background:linear-gradient(135deg,var(--gradient-start),var(--gradient-end));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">waiting in your watchlist.</em></h2>
   <p>Aucword is coming soon to the App Store. Free to download.</p>
 
-  <div class="btn-coming-soon">
+  <div class="btn-coming-soon" id="cta-bottom" onclick="trackCTA('bottom')">
     <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M14.05 10.9c-.02-2.03 1.66-3.01 1.74-3.06-0.95-1.38-2.42-1.57-2.94-1.59-1.26-.13-2.46.74-3.1.74-.64 0-1.63-.72-2.68-.7-1.38.02-2.66.8-3.37 2.03-1.44 2.49-.37 6.18 1.04 8.2.69 1 1.51 2.11 2.59 2.07 1.04-.04 1.43-.67 2.69-.67 1.25 0 1.61.67 2.71.65 1.12-.02 1.83-1.01 2.51-2.02.8-1.16 1.12-2.29 1.14-2.35-.03-.01-2.2-.84-2.23-3.3zM11.97 4.77c.57-.69.96-1.65.85-2.6-.82.03-1.82.54-2.4 1.22-.53.6-.99 1.57-.87 2.5.92.07 1.86-.46 2.42-1.12z"/></svg>
     Coming Soon
   </div>
@@ -559,6 +582,28 @@
     <a href="mailto:hi@aucword.com">Contact</a>
   </div>
 </footer>
+
+<script>
+  function trackCTA(location) {
+    if (window.pendo) {
+      pendo.track('cta_click', { location: location });
+    }
+  }
+
+  // Track scroll depth milestones
+  var scrollMilestones = { 25: false, 50: false, 75: false, 100: false };
+  window.addEventListener('scroll', function() {
+    var scrolled = (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100;
+    Object.keys(scrollMilestones).forEach(function(milestone) {
+      if (!scrollMilestones[milestone] && scrolled >= parseInt(milestone)) {
+        scrollMilestones[milestone] = true;
+        if (window.pendo) {
+          pendo.track('scroll_depth', { percent: parseInt(milestone) });
+        }
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
