@@ -3,32 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="logo.png">
-  <link rel="apple-touch-icon" href="logo.png">
-  <title>Aucword — eBay Auction Tracker for Sports Card Collectors</title>
-  <meta name="description" content="Never miss an eBay auction. Aucword gives sports card collectors live countdowns, smart price alerts, and home screen widgets for your eBay watchlist. Free iOS app.">
-  <meta name="keywords" content="eBay auction tracker, sports card auction app, eBay watchlist app, bid alert, auction countdown, sports cards iOS app">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://aucword.com/">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://aucword.com/">
-  <meta property="og:site_name" content="Aucword">
-  <meta property="og:title" content="Never Miss an eBay Auction — Aucword">
-  <meta property="og:description" content="Live countdowns, smart alerts, and home screen widgets for your eBay watchlist. Built for sports card collectors. Free iOS app.">
-  <meta property="og:image" content="https://aucword.com/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Aucword app showing live auction countdowns for sports cards">
-  <meta property="og:locale" content="en_US">
-
-  <!-- Twitter/X Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Never Miss an eBay Auction — Aucword">
-  <meta name="twitter:description" content="Live countdowns, smart alerts, and home screen widgets for your eBay watchlist. Built for sports card collectors.">
-  <meta name="twitter:image" content="https://aucword.com/og-image.png">
-  <meta name="twitter:image:alt" content="Aucword iOS app — eBay auction tracker for sports card collectors">
+  <title>Aucword — Never Miss an eBay Auction</title>
+  <meta name="description" content="Aucword tracks your eBay auctions in real time. Countdown timers, smart alerts, and a home screen widget so you never miss a bid." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -116,7 +92,7 @@
 
     .nav-badge .dot {
       width: 6px; height: 6px;
-      background: var(--lavender);
+      background: var(--green);
       border-radius: 50%;
       animation: pulse 2s infinite;
     }
@@ -179,8 +155,8 @@
       animation: fadeUp 0.6s ease-out 0.3s both;
     }
 
-    /* ─── COMING SOON BUTTON ─── */
-    .btn-coming-soon {
+    /* ─── APP STORE BUTTON ─── */
+    .btn-app-store {
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -192,12 +168,22 @@
       padding: 16px 32px;
       border-radius: 14px;
       border: none;
-      cursor: default;
+      cursor: pointer;
       position: relative;
       overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .btn-coming-soon svg { flex-shrink: 0; }
+    .btn-app-store:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(197,184,245,0.3);
+    }
+
+    .btn-app-store:active {
+      transform: translateY(0);
+    }
+
+    .btn-app-store svg { flex-shrink: 0; }
 
     .hero-note {
       font-size: 13px;
@@ -423,54 +409,6 @@
       footer { justify-content: center; text-align: center; }
     }
   </style>
-
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Aucword",
-    "operatingSystem": "iOS",
-    "applicationCategory": "UtilitiesApplication",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "description": "Aucword is an iOS app for sports card collectors that tracks eBay auctions in real time. Features include live countdowns, smart price alerts, and home screen widgets.",
-    "url": "https://aucword.com",
-    "screenshot": "https://aucword.com/screenshot.png",
-    "featureList": [
-      "Live auction countdowns",
-      "Smart price alerts",
-      "Home screen and lock screen widgets",
-      "eBay watchlist sync"
-    ]
-  }
-  </script>
-
-  <!-- Pendo Analytics -->
-  <script>
-    (function(apiKey) {
-      (function(p,e,n,d,o){var v,w,x,y,z;o=p[d]=p[d]||{};o._q=o._q||[];
-      v=['initialize','identify','updateOptions','pageLoad','track'];
-      for(w=0,x=v.length;w<x;++w)(function(m){
-        o[m]=o[m]||function(){o._q[m===v[0]?'unshift':'push']([m].concat([].slice.call(arguments,0)));};
-      })(v[w]);
-        y=e.createElement(n);y.async=!0;y.src='https://cdn.pendo.io/agent/static/'+apiKey+'/pendo.js';
-        z=e.getElementsByTagName(n)[0];z.parentNode.insertBefore(y,z);
-      })(window,document,'script','pendo');
-
-      pendo.initialize({
-        visitor: {
-          id: 'anon-' + Math.random().toString(36).substr(2, 9)
-        },
-        account: {
-          id: 'aucword-site'
-        }
-      });
-    })('257ea951-6905-4a25-a9de-7faf1d86068c');
-  </script>
 </head>
 <body>
 
@@ -480,17 +418,17 @@
     <img src="logo.png" alt="Aucword" />
     <span>Aucword</span>
   </a>
-  <div class="nav-badge">
+  <a href="https://apps.apple.com/us/app/aucword-auction-notifications/id6759997767" class="nav-badge" style="text-decoration:none;">
     <span class="dot"></span>
-    Coming Soon to iOS
-  </div>
+    Available on iOS
+  </a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-badge">
     <span class="badge-dot"></span>
-    Coming soon to the App Store
+    Now available on the App Store
   </div>
 
   <h1>Stop losing auctions<br/><em>while you're not watching.</em></h1>
@@ -500,10 +438,10 @@
   </p>
 
   <div class="hero-ctas">
-    <div class="btn-coming-soon" id="cta-hero" onclick="trackCTA('hero')">
+    <a href="https://apps.apple.com/us/app/aucword-auction-notifications/id6759997767" class="btn-app-store">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M14.05 10.9c-.02-2.03 1.66-3.01 1.74-3.06-0.95-1.38-2.42-1.57-2.94-1.59-1.26-.13-2.46.74-3.1.74-.64 0-1.63-.72-2.68-.7-1.38.02-2.66.8-3.37 2.03-1.44 2.49-.37 6.18 1.04 8.2.69 1 1.51 2.11 2.59 2.07 1.04-.04 1.43-.67 2.69-.67 1.25 0 1.61.67 2.71.65 1.12-.02 1.83-1.01 2.51-2.02.8-1.16 1.12-2.29 1.14-2.35-.03-.01-2.2-.84-2.23-3.3zM11.97 4.77c.57-.69.96-1.65.85-2.6-.82.03-1.82.54-2.4 1.22-.53.6-.99 1.57-.87 2.5.92.07 1.86-.46 2.42-1.12z"/></svg>
-      Coming Soon
-    </div>
+      Download for Free
+    </a>
   </div>
   <p class="hero-note">Free · iOS 17+ · eBay account required</p>
 
@@ -548,7 +486,7 @@
 
 <!-- TESTIMONIALS -->
 <section class="testimonials-section">
-  <div class="label">What beta testers are saying</div>
+  <div class="label">What collectors are saying</div>
   <div class="testimonials-grid">
     <div class="testimonial-card">
       <p>"I've been looking for something like this for years. The widget alone is worth it — I can see my auctions without opening eBay."</p>
@@ -558,7 +496,7 @@
     <div class="testimonial-card">
       <p>"The alert came 5 minutes before the auction ended. I would have missed it completely without Aucword."</p>
       <div class="testimonial-author">Ryan S.</div>
-      <div class="testimonial-handle">Collector, beta tester</div>
+      <div class="testimonial-handle">Sports card collector</div>
     </div>
   </div>
 </section>
@@ -566,12 +504,12 @@
 <!-- FINAL CTA -->
 <section class="cta-section">
   <h2>Your next win is<br/><em style="background:linear-gradient(135deg,var(--gradient-start),var(--gradient-end));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">waiting in your watchlist.</em></h2>
-  <p>Aucword is coming soon to the App Store. Free to download.</p>
+  <p>Aucword is free on the App Store. Download it and never miss another auction.</p>
 
-  <div class="btn-coming-soon" id="cta-bottom" onclick="trackCTA('bottom')">
+  <a href="https://apps.apple.com/us/app/aucword-auction-notifications/id6759997767" class="btn-app-store">
     <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M14.05 10.9c-.02-2.03 1.66-3.01 1.74-3.06-0.95-1.38-2.42-1.57-2.94-1.59-1.26-.13-2.46.74-3.1.74-.64 0-1.63-.72-2.68-.7-1.38.02-2.66.8-3.37 2.03-1.44 2.49-.37 6.18 1.04 8.2.69 1 1.51 2.11 2.59 2.07 1.04-.04 1.43-.67 2.69-.67 1.25 0 1.61.67 2.71.65 1.12-.02 1.83-1.01 2.51-2.02.8-1.16 1.12-2.29 1.14-2.35-.03-.01-2.2-.84-2.23-3.3zM11.97 4.77c.57-.69.96-1.65.85-2.6-.82.03-1.82.54-2.4 1.22-.53.6-.99 1.57-.87 2.5.92.07 1.86-.46 2.42-1.12z"/></svg>
-    Coming Soon
-  </div>
+    Download for Free
+  </a>
 </section>
 
 <!-- FOOTER -->
@@ -582,28 +520,6 @@
     <a href="mailto:hi@aucword.com">Contact</a>
   </div>
 </footer>
-
-<script>
-  function trackCTA(location) {
-    if (window.pendo) {
-      pendo.track('cta_click', { location: location });
-    }
-  }
-
-  // Track scroll depth milestones
-  var scrollMilestones = { 25: false, 50: false, 75: false, 100: false };
-  window.addEventListener('scroll', function() {
-    var scrolled = (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100;
-    Object.keys(scrollMilestones).forEach(function(milestone) {
-      if (!scrollMilestones[milestone] && scrolled >= parseInt(milestone)) {
-        scrollMilestones[milestone] = true;
-        if (window.pendo) {
-          pendo.track('scroll_depth', { percent: parseInt(milestone) });
-        }
-      }
-    });
-  });
-</script>
 
 </body>
 </html>
