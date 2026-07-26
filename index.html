@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#151929" />
 
   <!-- iOS Smart App Banner -->
-  <meta name="apple-itunes-app" content="app-id=6759997767" />
+  <meta name="apple-itunes-app" content="app-id=6759997767, affiliate-data=pt=128248580&amp;ct=website_banner" />
 
   <!-- Icons -->
   <link rel="icon" href="/favicon.ico" sizes="48x48" />
@@ -726,14 +726,25 @@
     // Referral attribution. The share loop in the apps links to aucword.com/?ref=win;
     // registering it as a super property makes it usable in funnels rather than only
     // greppable inside $current_url.
+    //
+    // It also rewrites the App Store campaign token, which is the only way to see
+    // whether a shared win actually produced an install: PostHog's trail stops at the
+    // App Store, but Apple reports installs per `ct` in App Analytics. Links already
+    // carry their placement token in the HTML, so this only *upgrades* attribution —
+    // with JS disabled the static tokens still work.
     (function () {
       try {
         var ref = new URLSearchParams(window.location.search).get('ref');
-        if (ref) {
-          ref = ref.slice(0, 64);
-          posthog.register({ landing_ref: ref });
-          posthog.capture('landing_viewed', { landing_ref: ref });
-        }
+        if (!ref) return;
+        ref = ref.slice(0, 64);
+        posthog.register({ landing_ref: ref });
+        posthog.capture('landing_viewed', { landing_ref: ref });
+
+        if (!/^[a-z0-9_-]+$/i.test(ref)) return;          // don't inject junk into the URL
+        var token = ref === 'win' ? 'win_share' : 'ref_' + ref.toLowerCase();
+        document.querySelectorAll('a[href*="apps.apple.com"]').forEach(function (a) {
+          a.href = a.href.replace(/([?&]ct=)[^&]*/, '$1' + encodeURIComponent(token));
+        });
       } catch (e) { /* no-op: attribution must never break the page */ }
     })();
   </script>
@@ -746,7 +757,7 @@
     <img src="/logo.png" width="400" height="211" alt="Aucword" />
     <span>Aucword</span>
   </a>
-  <a href="https://apps.apple.com/us/app/aucword-auction-notifications/id6759997767" class="nav-badge" style="text-decoration:none;" onclick="posthog.capture('app_store_clicked',{location:'header'})">
+  <a href="https://apps.apple.com/app/apple-store/id6759997767?pt=128248580&amp;ct=website_nav&amp;mt=8" class="nav-badge" style="text-decoration:none;" onclick="posthog.capture('app_store_clicked',{location:'header'})">
     <span class="dot"></span>
     Available on iOS
   </a>
@@ -770,13 +781,13 @@
     </p>
 
     <div class="hero-ctas">
-      <a href="https://apps.apple.com/us/app/aucword-auction-notifications/id6759997767" class="btn-app-store" onclick="posthog.capture('app_store_clicked',{location:'hero'})">
+      <a href="https://apps.apple.com/app/apple-store/id6759997767?pt=128248580&amp;ct=website_hero&amp;mt=8" class="btn-app-store" onclick="posthog.capture('app_store_clicked',{location:'hero'})">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M14.05 10.9c-.02-2.03 1.66-3.01 1.74-3.06-0.95-1.38-2.42-1.57-2.94-1.59-1.26-.13-2.46.74-3.1.74-.64 0-1.63-.72-2.68-.7-1.38.02-2.66.8-3.37 2.03-1.44 2.49-.37 6.18 1.04 8.2.69 1 1.51 2.11 2.59 2.07 1.04-.04 1.43-.67 2.69-.67 1.25 0 1.61.67 2.71.65 1.12-.02 1.83-1.01 2.51-2.02.8-1.16 1.12-2.29 1.14-2.35-.03-.01-2.2-.84-2.23-3.3zM11.97 4.77c.57-.69.96-1.65.85-2.6-.82.03-1.82.54-2.4 1.22-.53.6-.99 1.57-.87 2.5.92.07 1.86-.46 2.42-1.12z"/></svg>
         Download for Free
       </a>
     </div>
 
-    <a href="https://apps.apple.com/us/app/aucword-auction-notifications/id6759997767" class="hero-rating" onclick="posthog.capture('app_store_clicked',{location:'rating'})">
+    <a href="https://apps.apple.com/app/apple-store/id6759997767?pt=128248580&amp;ct=website_rating&amp;mt=8" class="hero-rating" onclick="posthog.capture('app_store_clicked',{location:'rating'})">
       <span class="stars" aria-hidden="true">★★★★★</span>
       <span><strong>5.0</strong> from 4 ratings on the App Store</span>
     </a>
@@ -913,7 +924,7 @@
   <h2>Your next win is<br/><em class="grad-text">waiting in your watchlist.</em></h2>
   <p>Aucword is free on the App Store. Download it and never miss another auction.</p>
 
-  <a href="https://apps.apple.com/us/app/aucword-auction-notifications/id6759997767" class="btn-app-store" onclick="posthog.capture('app_store_clicked',{location:'final'})">
+  <a href="https://apps.apple.com/app/apple-store/id6759997767?pt=128248580&amp;ct=website_final&amp;mt=8" class="btn-app-store" onclick="posthog.capture('app_store_clicked',{location:'final'})">
     <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M14.05 10.9c-.02-2.03 1.66-3.01 1.74-3.06-0.95-1.38-2.42-1.57-2.94-1.59-1.26-.13-2.46.74-3.1.74-.64 0-1.63-.72-2.68-.7-1.38.02-2.66.8-3.37 2.03-1.44 2.49-.37 6.18 1.04 8.2.69 1 1.51 2.11 2.59 2.07 1.04-.04 1.43-.67 2.69-.67 1.25 0 1.61.67 2.71.65 1.12-.02 1.83-1.01 2.51-2.02.8-1.16 1.12-2.29 1.14-2.35-.03-.01-2.2-.84-2.23-3.3zM11.97 4.77c.57-.69.96-1.65.85-2.6-.82.03-1.82.54-2.4 1.22-.53.6-.99 1.57-.87 2.5.92.07 1.86-.46 2.42-1.12z"/></svg>
     Download for Free
   </a>
