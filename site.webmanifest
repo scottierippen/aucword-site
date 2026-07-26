@@ -1,0 +1,20 @@
+{
+  "name": "Aucword",
+  "short_name": "Aucword",
+  "description": "Track your eBay auctions in real time with live countdowns, price-target alerts, and a home screen widget.",
+  "start_url": "/",
+  "theme_color": "#151929",
+  "background_color": "#151929",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
