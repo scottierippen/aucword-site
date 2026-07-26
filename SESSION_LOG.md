@@ -49,6 +49,12 @@ Fixed: dead Pendo agent script deleted (it was still loading), §7 vendor list c
 - **`aggregateRating` is hand-maintained** — 5.0 from 4 ratings, checked 2026-07-26. Refresh it when the App Store rating moves or delete the block. Stale values here are false structured data.
 - `twitter:site` = `@aucword` — safe to ship, handles confirmed held on X, Instagram, TikTok.
 
+**Second commit (`112131c`) came from actually auditing the pass rather than trusting the plan's copy table.** It found: (a) the home page's three feature `h3`s had **no parent `h2`**, nesting them under the problem statement; (b) "countdown", "widget", and "watchlist" appeared in **no `h2` at all**, and "eBay" in none either; (c) the support page's title was **17 characters** — the single biggest wasted SEO element, on the one page that can plausibly rank for troubleshooting long-tail; (d) "auction" appeared **once** on that page; (e) the deletion page title read as a UI label, not the query people type. All fixed. Subpages also gained `twitter:card` and `WebPage` + `BreadcrumbList` JSON-LD.
+
+Audited state: 5/5 pages well-formed, all JSON-LD parses, exactly 1 `h1` per page, 0 skipped heading levels, titles 43–61ch and descriptions 155–167ch on the three indexable content pages, home page 629 words (was 274).
+
+**Limitation worth knowing:** keyword targeting here is reasoning-based, not data-based — there was no search-volume tool in play. Validate the actual terms in Search Console once it has a few weeks of impression data, and adjust titles then.
+
 ### Copy
 - H1: "Stop losing **eBay** auctions" — gains the keyword without narrowing to "card" (heaviest users are a collectibles business and a 555-item generalist).
 - Hero sub + feature cards now mention the **Lock Screen countdown** and **price targets** — the actual wedge vs eBay's own app, previously absent from the site entirely.
