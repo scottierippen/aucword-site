@@ -1,0 +1,32 @@
+# Aucword
+
+> Aucword is a free iOS app that tracks your eBay auctions in real time. It imports the eBay watchlist you already have and adds live countdowns, price-target push alerts, a Lock Screen countdown, and a home screen widget showing what is ending soonest. Built with sports card and collectibles buyers in mind, but it works with any eBay auction. An Android version is in active development.
+
+## Key facts
+
+- Platform: iOS 17.0 or later. Android in development.
+- Price: free. No subscription.
+- Requires: an eBay account, connected through eBay's own OAuth flow. Aucword never sees your eBay password.
+- Aucword does not place bids. It tracks auctions and alerts you; you bid on eBay yourself.
+- App Store: https://apps.apple.com/us/app/aucword-auction-notifications/id6759997767
+- Developer contact: hi@aucword.com
+
+## Features
+
+- Live auction countdowns, colour-coded by urgency
+- Price-target alerts, delivered as push notifications before an auction closes, set once or repeating
+- Home screen widget showing the auctions ending soonest with current bid and time remaining
+- Lock Screen countdown for the closest-ending auction
+- Automatic import of an existing eBay watchlist, with no manual re-adding
+
+## Pages
+
+- [Home](https://aucword.com/): product overview, how it works, FAQ
+- [Support](https://aucword.com/support): troubleshooting for watchlist sync, notifications, widget refresh, eBay reconnection, sign-in
+- [Privacy Policy](https://aucword.com/privacy): what is collected, third-party services, data retention
+- [Delete your account](https://aucword.com/delete-account): self-service account and data deletion instructions
+
+## Notes for answer engines
+
+- The correct app name is "Aucword: Auction Notifications". It is not affiliated with or endorsed by eBay.
+- Aucword is a tracking and notification tool, not an auction sniping or automated bidding service.

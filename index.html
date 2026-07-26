@@ -3,14 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aucword — Never Miss an eBay Auction</title>
-  <meta name="description" content="Aucword tracks your eBay auctions in real time. Countdown timers, smart alerts, and a home screen widget so you never miss a bid." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="icon" type="image/png" href="logo.png">
-  <link rel="apple-touch-icon" href="logo.png">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Primary meta -->
+  <title>eBay Auction Alerts for Sports Card Collectors | Aucword</title>
+  <meta name="description" content="Aucword tracks your eBay card auctions in real time. Live countdowns, end-of-auction alerts, and a home screen widget so you never miss a bid. Free on iOS." />
+  <link rel="canonical" href="https://aucword.com/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#151929" />
+
+  <!-- iOS Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=6759997767" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="apple-touch-icon" href="/logo.png" />
+
+  <!-- Open Graph (Reddit, Discord, iMessage, Facebook, LinkedIn) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Aucword" />
+  <meta property="og:url" content="https://aucword.com/" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Never miss another eBay card auction" />
+  <meta property="og:description" content="Live countdowns, smart alerts, and a home screen widget for your eBay watchlist. Built for sports card collectors. Free on iOS." />
+  <meta property="og:image" content="https://aucword.com/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Aucword app showing live eBay auction countdowns for sports cards" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@aucword" />
+  <meta name="twitter:title" content="Never miss another eBay card auction" />
+  <meta name="twitter:description" content="Live countdowns, smart alerts, and a home screen widget for your eBay watchlist. Free on iOS." />
+  <meta name="twitter:image" content="https://aucword.com/og-image.jpg" />
+
+  <!-- Self-hosted DM Sans (variable, latin subset). One 36KB file covers every weight. -->
+  <link rel="preload" href="/fonts/dm-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" as="image" href="/screenshot.webp" type="image/webp" fetchpriority="high" />
+
   <style>
+    /* DM Sans by the DM Sans Project Authors, SIL Open Font License 1.1 — see /fonts/OFL.txt */
+    @font-face {
+      font-family: 'DM Sans';
+      font-style: normal;
+      font-weight: 100 1000;
+      font-display: swap;
+      src: url('/fonts/dm-sans-latin-var.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
     :root {
       --navy: #151929;
       --navy-light: #1e2540;
@@ -28,8 +69,7 @@
       --green: #4ddb8e;
       --yellow: #f5d76e;
       --red: #f56e6e;
-      --font: 'DM Sans', sans-serif;
-      --mono: 'DM Mono', monospace;
+      --font: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -41,6 +81,14 @@
       font-family: var(--font);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+    }
+
+    .grad-text {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     /* ─── NAV ─── */
@@ -136,18 +184,12 @@
       animation: fadeUp 0.6s ease-out 0.1s both;
     }
 
-    .hero h1 em {
-      font-style: normal;
-      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+    .hero h1 em { font-style: normal; }
 
     .hero-sub {
       font-size: 18px;
       color: var(--white-60);
-      max-width: 540px;
+      max-width: 560px;
       margin: 0 auto 36px;
       line-height: 1.6;
       animation: fadeUp 0.6s ease-out 0.2s both;
@@ -226,7 +268,9 @@
       margin: 0 auto;
     }
 
-    .problem-section .label {
+    .problem-section .label,
+    .steps-section .label,
+    .faq-section .label {
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.1em;
@@ -255,10 +299,22 @@
       margin: 0 auto;
     }
 
+    .steps-section.how {
+      padding-top: 20px;
+      text-align: center;
+    }
+
+    .steps-section.how h2 {
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+
     .steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 24px;
+      text-align: left;
     }
 
     .step-card {
@@ -277,12 +333,13 @@
       align-items: center;
       justify-content: center;
       font-size: 24px;
+      font-weight: 700;
       margin: 0 auto 20px;
     }
 
-    .step-card:nth-child(1) .step-icon { background: rgba(197,184,245,0.12); }
-    .step-card:nth-child(2) .step-icon { background: rgba(245,197,160,0.12); }
-    .step-card:nth-child(3) .step-icon { background: rgba(77,219,142,0.12); }
+    .step-card:nth-child(1) .step-icon { background: rgba(197,184,245,0.12); color: var(--lavender); }
+    .step-card:nth-child(2) .step-icon { background: rgba(245,197,160,0.12); color: var(--peach); }
+    .step-card:nth-child(3) .step-icon { background: rgba(77,219,142,0.12); color: var(--green); }
 
     .step-card h3 {
       font-size: 18px;
@@ -296,58 +353,110 @@
       line-height: 1.6;
     }
 
-    /* ─── TESTIMONIALS ─── */
-    .testimonials-section {
-      padding: 60px 24px 80px;
-      max-width: 900px;
+    /* ─── RATING ─── */
+    .rating-section {
+      padding: 20px 24px 80px;
+      text-align: center;
+    }
+
+    .rating-card {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      background: var(--navy-card);
+      border: 1px solid var(--white-10);
+      border-radius: 20px;
+      padding: 28px 40px;
+      text-decoration: none;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .rating-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .rating-value {
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--white);
+    }
+
+    .rating-stars {
+      font-size: 18px;
+      letter-spacing: 2px;
+      color: var(--yellow);
+    }
+
+    .rating-meta {
+      font-size: 14px;
+      color: var(--white-60);
+    }
+
+    /* ─── FAQ ─── */
+    .faq-section {
+      padding: 20px 24px 100px;
+      max-width: 760px;
       margin: 0 auto;
     }
 
-    .testimonials-section .label {
+    .faq-section .label { text-align: center; }
+
+    .faq-section h2 {
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 700;
       text-align: center;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--peach);
       margin-bottom: 40px;
     }
 
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    .testimonial-card {
+    .faq-item {
       background: var(--navy-light);
       border: 1px solid var(--white-10);
-      border-radius: 16px;
-      padding: 28px;
+      border-radius: 14px;
+      margin-bottom: 12px;
+      overflow: hidden;
     }
 
-    .testimonial-card p {
+    .faq-item summary {
+      padding: 20px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+
+    .faq-item summary::after {
+      content: '+';
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--lavender);
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+
+    .faq-item .faq-answer {
+      padding: 0 24px 20px;
       font-size: 15px;
-      color: var(--white-90);
-      line-height: 1.6;
-      margin-bottom: 16px;
-      font-style: italic;
+      color: var(--white-60);
+      line-height: 1.7;
     }
 
-    .testimonial-author {
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .testimonial-handle {
-      font-size: 13px;
-      color: var(--white-30);
-    }
+    .faq-item .faq-answer a { color: var(--lavender); }
 
     /* ─── FINAL CTA ─── */
     .cta-section {
       text-align: center;
-      padding: 80px 24px 100px;
+      padding: 40px 24px 100px;
       max-width: 640px;
       margin: 0 auto;
     }
@@ -391,6 +500,13 @@
 
     footer a:hover { color: var(--white); }
 
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
     /* ─── ANIMATIONS ─── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -402,19 +518,190 @@
       50% { opacity: 0.4; }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001s !important;
+      }
+    }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 700px) {
       nav { padding: 14px 20px; }
       .steps { grid-template-columns: 1fr; gap: 16px; }
-      .testimonials-grid { grid-template-columns: 1fr; }
       .phone-frame { width: 260px; }
       footer { justify-content: center; text-align: center; }
+      .rating-card { padding: 24px 32px; }
     }
   </style>
+
+  <!--
+    Structured data. NOTE: aggregateRating below mirrors the live App Store rating
+    (5.0 from 4 ratings, checked 2026-07-26). It is hand-maintained — refresh it when
+    the Store rating changes, or remove the aggregateRating block. Stale values here
+    are false structured data.
+  -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MobileApplication",
+        "@id": "https://aucword.com/#app",
+        "name": "Aucword: Auction Notifications",
+        "alternateName": "Aucword — eBay Auction Tracker",
+        "applicationCategory": "ShoppingApplication",
+        "applicationSubCategory": "Auction Tracker",
+        "operatingSystem": "iOS 17.0 or later",
+        "url": "https://aucword.com/",
+        "installUrl": "https://apps.apple.com/us/app/aucword-auction-notifications/id6759997767",
+        "downloadUrl": "https://apps.apple.com/us/app/aucword-auction-notifications/id6759997767",
+        "screenshot": "https://aucword.com/screenshot.png",
+        "description": "Aucword tracks your eBay auctions in real time with live countdowns, price-target alerts, a Lock Screen countdown, and a home screen widget. Built for sports card and collectibles buyers.",
+        "featureList": [
+          "Live auction countdowns colour-coded by urgency",
+          "Price-target alerts before an auction ends",
+          "Home screen widget showing what is ending soonest",
+          "Lock Screen countdown for the closest auction",
+          "Automatic import of your existing eBay watchlist"
+        ],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "ratingCount": "4",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "publisher": { "@id": "https://aucword.com/#org" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://aucword.com/#org",
+        "name": "Aucword",
+        "url": "https://aucword.com/",
+        "email": "hi@aucword.com",
+        "logo": "https://aucword.com/logo.png",
+        "sameAs": [
+          "https://x.com/aucword",
+          "https://www.instagram.com/aucword",
+          "https://www.tiktok.com/@aucword"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://aucword.com/#website",
+        "url": "https://aucword.com/",
+        "name": "Aucword",
+        "inLanguage": "en-US",
+        "publisher": { "@id": "https://aucword.com/#org" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://aucword.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Does Aucword work with my existing eBay watchlist?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Sign in with eBay once and the watchlist you already have imports automatically. There is nothing to re-add by hand."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will Aucword bid for me?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Aucword never places a bid. It tracks your auctions and tells you when to act — you place the bid on eBay yourself."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to give Aucword my eBay password?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Signing in goes through eBay's own OAuth flow, so your password is entered on eBay's site and never reaches Aucword."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What alerts can I get before an auction ends?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can set a price target per item and get a push notification when an auction is closing in or reaches the price you set. Alerts can fire once or repeat."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it work when the app is closed?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Alerts arrive as push notifications, and the home screen widget and Lock Screen countdown keep updating in the background."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Aucword free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Aucword is free to download and use, with no subscription."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it work for anything besides sports cards?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Aucword works with any eBay auction on your watchlist. It is built with card and collectibles buyers in mind, but nothing is category-specific."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "When is the Android version coming out?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An Android version is in active development. Follow @aucword on X, Instagram, or TikTok and we will post the day it lands."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I delete my account?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Open Settings in the app and choose Delete Account, or email hi@aucword.com. Full instructions are at https://aucword.com/delete-account."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <!-- PostHog product analytics -->
   <script>
     !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
     posthog.init('phc_zjuDw38ZHVd2KKNT6b6Ln3Rvr8u3YzHUetTBiZ3AMgBP', { api_host: 'https://us.i.posthog.com', person_profiles: 'identified_only' });
+
+    // Referral attribution. The share loop in the apps links to aucword.com/?ref=win;
+    // registering it as a super property makes it usable in funnels rather than only
+    // greppable inside $current_url.
+    (function () {
+      try {
+        var ref = new URLSearchParams(window.location.search).get('ref');
+        if (ref) {
+          ref = ref.slice(0, 64);
+          posthog.register({ landing_ref: ref });
+          posthog.capture('landing_viewed', { landing_ref: ref });
+        }
+      } catch (e) { /* no-op: attribution must never break the page */ }
+    })();
   </script>
 </head>
 <body>
@@ -422,13 +709,15 @@
 <!-- NAV -->
 <nav>
   <a href="/" class="nav-logo">
-    <img src="logo.png" alt="Aucword" />
+    <img src="/logo.png" width="400" height="211" alt="Aucword" />
     <span>Aucword</span>
   </a>
   <a href="https://apps.apple.com/us/app/aucword-auction-notifications/id6759997767" class="nav-badge" style="text-decoration:none;" onclick="posthog.capture('app_store_clicked',{location:'header'})">
     <span class="dot"></span>
     Available on iOS
   </a>
+  <!-- ANDROID LAUNCH: when the Play listing is live, replace the badge above with a
+       two-badge row and swap in play_store_clicked. Copy is ready in /support.html FAQ. -->
 </nav>
 
 <!-- HERO -->
@@ -438,24 +727,31 @@
     Now available on the App Store
   </div>
 
-  <h1>Stop losing auctions<br/><em>while you're not watching.</em></h1>
+  <h1>Stop losing eBay auctions<br/><em class="grad-text">while you're not watching.</em></h1>
 
   <p class="hero-sub">
-    Aucword puts live countdowns, smart alerts, and your watchlist right on your home screen — so you always know when it's time to bid.
+    Aucword puts live countdowns, price-target alerts, and your entire eBay watchlist on your home screen and Lock Screen — built for card and collectibles buyers who can't watch every auction end.
   </p>
 
   <div class="hero-ctas">
     <a href="https://apps.apple.com/us/app/aucword-auction-notifications/id6759997767" class="btn-app-store" onclick="posthog.capture('app_store_clicked',{location:'hero'})">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M14.05 10.9c-.02-2.03 1.66-3.01 1.74-3.06-0.95-1.38-2.42-1.57-2.94-1.59-1.26-.13-2.46.74-3.1.74-.64 0-1.63-.72-2.68-.7-1.38.02-2.66.8-3.37 2.03-1.44 2.49-.37 6.18 1.04 8.2.69 1 1.51 2.11 2.59 2.07 1.04-.04 1.43-.67 2.69-.67 1.25 0 1.61.67 2.71.65 1.12-.02 1.83-1.01 2.51-2.02.8-1.16 1.12-2.29 1.14-2.35-.03-.01-2.2-.84-2.23-3.3zM11.97 4.77c.57-.69.96-1.65.85-2.6-.82.03-1.82.54-2.4 1.22-.53.6-.99 1.57-.87 2.5.92.07 1.86-.46 2.42-1.12z"/></svg>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M14.05 10.9c-.02-2.03 1.66-3.01 1.74-3.06-0.95-1.38-2.42-1.57-2.94-1.59-1.26-.13-2.46.74-3.1.74-.64 0-1.63-.72-2.68-.7-1.38.02-2.66.8-3.37 2.03-1.44 2.49-.37 6.18 1.04 8.2.69 1 1.51 2.11 2.59 2.07 1.04-.04 1.43-.67 2.69-.67 1.25 0 1.61.67 2.71.65 1.12-.02 1.83-1.01 2.51-2.02.8-1.16 1.12-2.29 1.14-2.35-.03-.01-2.2-.84-2.23-3.3zM11.97 4.77c.57-.69.96-1.65.85-2.6-.82.03-1.82.54-2.4 1.22-.53.6-.99 1.57-.87 2.5.92.07 1.86-.46 2.42-1.12z"/></svg>
       Download for Free
     </a>
   </div>
-  <p class="hero-note">Free · iOS 17+ · eBay account required</p>
+  <p class="hero-note">Free · iOS 17+ · Android coming soon · eBay account required</p>
 
   <!-- App screenshot -->
   <div class="phone-wrap">
     <div class="phone-frame">
-      <img src="screenshot.png" alt="Aucword app showing a watchlist of sports card auctions with live countdowns, price alerts, and bid counts" />
+      <picture>
+        <source srcset="/screenshot.webp" type="image/webp" />
+        <img src="/screenshot.png"
+             width="600" height="1303"
+             fetchpriority="high"
+             decoding="async"
+             alt="Aucword app showing a watchlist of sports card auctions with live countdowns, price alerts, and bid counts" />
+      </picture>
     </div>
   </div>
 </section>
@@ -463,58 +759,124 @@
 <!-- PROBLEM -->
 <section class="problem-section">
   <div class="label">The Problem</div>
-  <h2>eBay auctions end while you're not looking.</h2>
+  <h2>Sports card auctions end while you're not looking.</h2>
   <p>
-    You add cards to your watchlist and then forget. The auction ends at 2am, or while you're at work, or in the middle of dinner. 
+    You add cards to your watchlist and then forget. The auction ends at 2am, or while you're at work, or in the middle of dinner.
     By the time you check, someone else got the card you wanted — for less than you would have paid.
   </p>
 </section>
 
-<!-- FEATURES / STEPS -->
+<!-- FEATURES -->
 <section class="steps-section">
   <div class="steps">
     <div class="step-card">
-      <div class="step-icon">⏱️</div>
-      <h3>Live Countdowns</h3>
-      <p>Every auction on your watchlist shows a real-time countdown — color-coded by urgency so you know what needs attention right now.</p>
+      <div class="step-icon" aria-hidden="true">⏱️</div>
+      <h3>Live Auction Countdowns</h3>
+      <p>Every auction on your watchlist shows a real-time countdown, colour-coded by urgency. A Lock Screen countdown keeps the closest one in front of you without opening anything.</p>
     </div>
     <div class="step-card">
-      <div class="step-icon">🔔</div>
-      <h3>Smart Alerts</h3>
-      <p>Set a price target and get notified before the auction ends. Never miss another card because you didn't check in time.</p>
+      <div class="step-icon" aria-hidden="true">🔔</div>
+      <h3>Smart End-of-Auction Alerts</h3>
+      <p>Set the most you'd pay on any item and get a push before it closes. Aucword watches the bidding so you don't have to keep refreshing eBay.</p>
     </div>
     <div class="step-card">
-      <div class="step-icon">📱</div>
-      <h3>Home Screen Widget</h3>
-      <p>See your auctions without opening the app. A glanceable widget that shows what's ending soon, right on your home screen.</p>
+      <div class="step-icon" aria-hidden="true">📱</div>
+      <h3>eBay Watchlist Widget</h3>
+      <p>A home screen widget showing what's ending soonest, with the current bid and time left on each. Glance instead of opening the app.</p>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section class="testimonials-section">
-  <div class="label">What collectors are saying</div>
-  <div class="testimonials-grid">
-    <div class="testimonial-card">
-      <p>"I've been looking for something like this for years. The widget alone is worth it — I can see my auctions without opening eBay."</p>
-      <div class="testimonial-author">Alex M.</div>
-      <div class="testimonial-handle">Sports card collector</div>
+<!-- HOW IT WORKS -->
+<section class="steps-section how">
+  <div class="label">How it works</div>
+  <h2>Three steps, about a minute.</h2>
+  <div class="steps">
+    <div class="step-card">
+      <div class="step-icon">1</div>
+      <h3>Connect your eBay account</h3>
+      <p>Sign in through eBay once. The watchlist you already have imports automatically — nothing to re-add by hand, and Aucword never sees your password.</p>
     </div>
-    <div class="testimonial-card">
-      <p>"The alert came 5 minutes before the auction ended. I would have missed it completely without Aucword."</p>
-      <div class="testimonial-author">Ryan S.</div>
-      <div class="testimonial-handle">Sports card collector</div>
+    <div class="step-card">
+      <div class="step-icon">2</div>
+      <h3>Set your price targets</h3>
+      <p>Pick the most you'd pay on the items you care about. Aucword tracks the current bid against your number.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-icon">3</div>
+      <h3>Get alerted before it ends</h3>
+      <p>Countdowns on your Lock Screen, a widget on your home screen, and a push notification with time left to bid.</p>
     </div>
   </div>
+</section>
+
+<!-- RATING -->
+<section class="rating-section">
+  <a href="https://apps.apple.com/us/app/aucword-auction-notifications/id6759997767" class="rating-card" onclick="posthog.capture('app_store_clicked',{location:'rating'})">
+    <span class="rating-value">5.0</span>
+    <span class="rating-stars" aria-hidden="true">★★★★★</span>
+    <span class="rating-meta">Rated 5.0 out of 5 from 4 ratings on the App Store</span>
+  </a>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="label">Questions</div>
+  <h2>Frequently asked</h2>
+
+  <details class="faq-item" ontoggle="if(this.open)posthog.capture('faq_opened',{question:'existing_watchlist'})">
+    <summary>Does Aucword work with my existing eBay watchlist?</summary>
+    <div class="faq-answer">Yes. Sign in with eBay once and the watchlist you already have imports automatically. There is nothing to re-add by hand.</div>
+  </details>
+
+  <details class="faq-item" ontoggle="if(this.open)posthog.capture('faq_opened',{question:'will_it_bid'})">
+    <summary>Will Aucword bid for me?</summary>
+    <div class="faq-answer">No. Aucword never places a bid. It tracks your auctions and tells you when to act — you place the bid on eBay yourself.</div>
+  </details>
+
+  <details class="faq-item" ontoggle="if(this.open)posthog.capture('faq_opened',{question:'ebay_password'})">
+    <summary>Do I need to give Aucword my eBay password?</summary>
+    <div class="faq-answer">No. Signing in goes through eBay's own OAuth flow, so your password is entered on eBay's site and never reaches Aucword.</div>
+  </details>
+
+  <details class="faq-item" ontoggle="if(this.open)posthog.capture('faq_opened',{question:'alert_types'})">
+    <summary>What alerts can I get before an auction ends?</summary>
+    <div class="faq-answer">You can set a price target per item and get a push notification when an auction is closing in or reaches the price you set. Alerts can fire once or repeat.</div>
+  </details>
+
+  <details class="faq-item" ontoggle="if(this.open)posthog.capture('faq_opened',{question:'app_closed'})">
+    <summary>Does it work when the app is closed?</summary>
+    <div class="faq-answer">Yes. Alerts arrive as push notifications, and the home screen widget and Lock Screen countdown keep updating in the background.</div>
+  </details>
+
+  <details class="faq-item" ontoggle="if(this.open)posthog.capture('faq_opened',{question:'is_it_free'})">
+    <summary>Is Aucword free?</summary>
+    <div class="faq-answer">Yes. Aucword is free to download and use, with no subscription.</div>
+  </details>
+
+  <details class="faq-item" ontoggle="if(this.open)posthog.capture('faq_opened',{question:'beyond_cards'})">
+    <summary>Does it work for anything besides sports cards?</summary>
+    <div class="faq-answer">Yes. Aucword works with any eBay auction on your watchlist. It's built with card and collectibles buyers in mind, but nothing is category-specific.</div>
+  </details>
+
+  <details class="faq-item" ontoggle="if(this.open)posthog.capture('faq_opened',{question:'android'})">
+    <summary>When is the Android version coming out?</summary>
+    <div class="faq-answer">An Android version is in active development. Follow <a href="https://x.com/aucword" onclick="posthog.capture('social_clicked',{network:'x',location:'faq'})">@aucword</a> and we'll post the day it lands.</div>
+  </details>
+
+  <details class="faq-item" ontoggle="if(this.open)posthog.capture('faq_opened',{question:'delete_account'})">
+    <summary>How do I delete my account?</summary>
+    <div class="faq-answer">Open Settings in the app and choose Delete Account. Full instructions, including what gets deleted, are on the <a href="/delete-account" onclick="posthog.capture('policy_link_clicked',{policy:'delete_account'})">account deletion page</a>.</div>
+  </details>
 </section>
 
 <!-- FINAL CTA -->
 <section class="cta-section">
-  <h2>Your next win is<br/><em style="background:linear-gradient(135deg,var(--gradient-start),var(--gradient-end));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">waiting in your watchlist.</em></h2>
+  <h2>Your next win is<br/><em class="grad-text">waiting in your watchlist.</em></h2>
   <p>Aucword is free on the App Store. Download it and never miss another auction.</p>
 
   <a href="https://apps.apple.com/us/app/aucword-auction-notifications/id6759997767" class="btn-app-store" onclick="posthog.capture('app_store_clicked',{location:'final'})">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M14.05 10.9c-.02-2.03 1.66-3.01 1.74-3.06-0.95-1.38-2.42-1.57-2.94-1.59-1.26-.13-2.46.74-3.1.74-.64 0-1.63-.72-2.68-.7-1.38.02-2.66.8-3.37 2.03-1.44 2.49-.37 6.18 1.04 8.2.69 1 1.51 2.11 2.59 2.07 1.04-.04 1.43-.67 2.69-.67 1.25 0 1.61.67 2.71.65 1.12-.02 1.83-1.01 2.51-2.02.8-1.16 1.12-2.29 1.14-2.35-.03-.01-2.2-.84-2.23-3.3zM11.97 4.77c.57-.69.96-1.65.85-2.6-.82.03-1.82.54-2.4 1.22-.53.6-.99 1.57-.87 2.5.92.07 1.86-.46 2.42-1.12z"/></svg>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M14.05 10.9c-.02-2.03 1.66-3.01 1.74-3.06-0.95-1.38-2.42-1.57-2.94-1.59-1.26-.13-2.46.74-3.1.74-.64 0-1.63-.72-2.68-.7-1.38.02-2.66.8-3.37 2.03-1.44 2.49-.37 6.18 1.04 8.2.69 1 1.51 2.11 2.59 2.07 1.04-.04 1.43-.67 2.69-.67 1.25 0 1.61.67 2.71.65 1.12-.02 1.83-1.01 2.51-2.02.8-1.16 1.12-2.29 1.14-2.35-.03-.01-2.2-.84-2.23-3.3zM11.97 4.77c.57-.69.96-1.65.85-2.6-.82.03-1.82.54-2.4 1.22-.53.6-.99 1.57-.87 2.5.92.07 1.86-.46 2.42-1.12z"/></svg>
     Download for Free
   </a>
 </section>
@@ -522,9 +884,14 @@
 <!-- FOOTER -->
 <footer>
   <p>&copy; 2026 Aucword. All rights reserved.</p>
-  <div style="display:flex;gap:24px;">
-    <a href="/privacy" onclick="posthog.capture('policy_link_clicked',{policy:'privacy'})">Privacy Policy</a>
+  <div class="footer-links">
+    <a href="/support" onclick="posthog.capture('support_link_clicked',{location:'footer'})">Support</a>
+    <a href="/privacy" onclick="posthog.capture('policy_link_clicked',{policy:'privacy'})">Privacy</a>
+    <a href="/delete-account" onclick="posthog.capture('policy_link_clicked',{policy:'delete_account'})">Delete account</a>
     <a href="mailto:hi@aucword.com" onclick="posthog.capture('contact_clicked')">Contact</a>
+    <a href="https://x.com/aucword" onclick="posthog.capture('social_clicked',{network:'x',location:'footer'})">X</a>
+    <a href="https://www.instagram.com/aucword" onclick="posthog.capture('social_clicked',{network:'instagram',location:'footer'})">Instagram</a>
+    <a href="https://www.tiktok.com/@aucword" onclick="posthog.capture('social_clicked',{network:'tiktok',location:'footer'})">TikTok</a>
   </div>
 </footer>
 
