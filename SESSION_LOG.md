@@ -4,7 +4,8 @@
 
 - **Repo:** `github.com/scottierippen/aucword-site`
 - **Domain:** `aucword.com`
-- **Hosting:** GitHub Pages (migrating to Vercel — see below)
+- **Hosting:** Vercel (migrated off GitHub Pages 2026-07-26). DNS at Cloudflare, unproxied.
+- **App Store attribution:** Provider ID `128248580`, campaign tokens on every store link
 - **Analytics:** PostHog JS (project `phc_zjuDw38ZHVd2KKNT6b6Ln3Rvr8u3YzHUetTBiZ3AMgBP`)
 - **Related repos:** `~/Desktop/aucword` (iOS), `~/Desktop/aucword-android` (Android)
 
@@ -24,7 +25,9 @@ Implemented from `~/Downloads/aucword-seo-plan.md` (§2 items, email-capture for
 
 **⚠️ A `cleanUrls` trap was caught live and is worth remembering.** Before the merge, the Vercel deploy served `main` (the old site) *without* `vercel.json`, and **`/privacy` returned 404 while `/privacy.html` returned 200**. GitHub Pages resolves extensionless URLs; Vercel does not unless `cleanUrls` is set. `https://aucword.com/privacy` is the URL both app stores and the in-app Settings row point at — cutting DNS in that state would have broken the privacy policy link in both apps. Merging fixed it because `vercel.json` came with the branch. **If `vercel.json` is ever removed or the project is re-imported, re-check `/privacy` before touching DNS.**
 
-**⚠️ VISUAL RENDERING STILL NEVER CONFIRMED.** Structure, links, JSON-LD, headers, and routes are all verified programmatically and over HTTP, but nobody has *looked* at the rendered pages. The browser preview tool timed out 3×300s locally, and `aucword-site.vercel.app` is blocked by browser policy in the assistant's environment. **A human needs to open it.**
+**✅ Visual rendering confirmed by the user** (full-page desktop screenshot, end of session). Renders correctly: self-hosted font, gradients, webp screenshot, card grids, FAQ accordions. The screenshot is what triggered the layout rework below.
+
+**Note for future sessions: the assistant cannot see this site.** `aucword.com` and `aucword-site.vercel.app` are both blocked by browser policy in its environment, and the local preview tool timed out 3×300s. Every visual change needs a screenshot from the user to verify. Structure/headers/routes can be fully verified over HTTP.
 
 ---
 
@@ -78,21 +81,49 @@ Audited state: 5/5 pages well-formed, all JSON-LD parses, exactly 1 `h1` per pag
 - **`?ref=win` now attributed** (was an open item in the iOS SESSION_LOG). Registered as `landing_ref` super property + `landing_viewed` event. It was already technically visible inside `$current_url`; this makes it usable in funnels.
 - New events: `faq_opened{question,page}`, `support_link_clicked{location}`, `social_clicked{network,location}`, `policy_link_clicked{policy:'delete_account'}`. Existing `app_store_clicked{location}` preserved on every CTA, plus new `rating` and `support` locations.
 
+### Desktop layout rework (from the user's screenshot)
+The site read as a mobile layout stretched onto a desktop: card grids capped at 1000px and the hero at 800px left ~a third of a 1440px screen as empty margin, and the H1 broke into **four** lines because "Stop losing eBay auctions" doesn't fit 800px at 64px and the hard `<br/>` then split it again.
+
+- **Hero is two columns above 900px** — copy left, phone right. Removes ~500px of vertical scroll and stops the phone sitting alone in a 300px column.
+- Shell widened 1000 → **1200px** (card grids + footer).
+- **Prose columns deliberately left narrow** (problem 660px, FAQ 800px). Line length past ~75 characters hurts readability, so the narrowness there was correct — widening it would make the page worse.
+- H1: hard `<br/>` dropped, `text-wrap: balance` added, scale reduced to `clamp(34px, 4.6vw, 56px)`.
+- The 5.0 rating moved out of its own near-empty band into the hero beside the CTA, where social proof affects the click.
+- **New 701–899px breakpoint** drops feature cards to two-up; three in a ~720px window were cramped (true before this rework too). Phone frame steps 260 → 300 → 320px. Single column remains the mobile-first base state, so no override is needed for phones.
+
+### Favicon (was broken)
+The site declared `logo.png` — **400×211, a 1.9:1 wordmark squashed into a 1:1 slot** — and used the same file as `apple-touch-icon`, where non-square gets letterboxed. **`/favicon.ico` 404'd**, so any client probing the default path got nothing.
+
+Rebuilt from the iOS `AppIcon` (1024×1024, square, brand navy, designed to survive small sizes — so the browser tab now matches the App Store listing). Set: `favicon.ico` (PNG-in-ICO at 16/32/48, avoids an ImageMagick dependency), `favicon-16/32.png`, `apple-touch-icon.png` 180, `icon-192/512.png`, `site.webmanifest`. **The 16/32 variants are cut from a ~1.3× centre crop** — Apple's safe-area padding leaves the mark unreadable at 16px.
+
+### App Store install attribution
+PostHog saw `app_store_clicked` but **nothing survived the hop through the App Store**, so there was no way to know whether any website click became an install. Apple reports installs per campaign token in App Analytics, which closes it in aggregate. User-level web→install is not achievable without a third-party attribution SDK and isn't worth it at this volume.
+
+- Every store link now carries `pt=128248580` plus a per-placement token: `website_nav`, `website_hero`, `website_rating`, `website_final`, `website_support`, `website_404`.
+- Smart App Banner taps were **entirely untracked**; now carry `affiliate-data` with `website_banner` / `support_banner` / `privacy_banner`. This is the least-certain piece — treat as a bonus, not a load-bearing number.
+- **`?ref=win` rewrites `ct` to `win_share` on load.** Previously it was impossible to tell whether the win-share loop drove a single install — the entire point of a feature shipped on both platforms. Static placement tokens stay in the HTML, so JS-off users still get attribution; the ref value is validated against `[a-z0-9_-]` before touching a URL.
+- Links switched from `/us/app/...` to Apple's locale-less `/app/apple-store/...`. The old path forced every visitor onto the **US storefront**; international visitors now reach their own.
+- **Verified** the campaign URL survives Apple's redirect with both `pt` and `ct` intact.
+- JSON-LD `installUrl`/`downloadUrl` left clean — tracking params don't belong in structured data.
+- **Unverified:** whether arbitrary `ct` values report without being pre-registered in App Store Connect. Only `website` was created by the user. Check Campaigns in a few days; if only `website` appears, generate the rest with App Store Connect's Campaign Link tool and match its format.
+
+
 ---
 
 ## Manual steps owed (human required)
 
 1. ~~**Vercel:** import the repo, add domains, cut DNS over~~ — **DONE 2026-07-26, verified.**
 2. ~~**Disable GitHub Pages, delete `CNAME`**~~ — **DONE.**
-3. **Set `www` to redirect to the apex** in Vercel → Domains. It currently serves a 200.
-4. **Look at the rendered pages.** Nobody has yet — see the warning above.
-4. **Search Console:** add domain property, verify by TXT, submit `https://aucword.com/sitemap.xml`, request indexing for `/`.
-5. **Bing Webmaster Tools:** import from Search Console.
-6. **Validate link previews:** Facebook debugger + iMessage self-test (`og-image.jpg` is new).
-7. **PageSpeed:** re-run mobile after cutover.
-8. **App Store Connect + Play Console:** set support URL to `https://aucword.com/support` and the Play account-deletion URL to `https://aucword.com/delete-account`.
-9. **Read the privacy policy edits.** Legal text, unreviewed.
-10. **Collect real testimonials** (plan §1.5: jeremy@sanfordcollectibles.com 124 items, jeff.vargas87@gmail.com 555 items, oezkantoprak@hotmail.com price-target user).
+3. ~~**Search Console**~~ — **DONE 2026-07-26.** Confirmed no indexing blockers: no `x-robots-tag` anywhere, all 4 sitemap URLs 200 + self-canonical, Googlebot gets 200. Still worth requesting indexing for `/` and `/delete-account`.
+4. ~~**Look at the rendered pages**~~ — **DONE** (user screenshot).
+5. **App Store Connect + Play Console:** set support URL to `https://aucword.com/support` and the Play account-deletion URL to `https://aucword.com/delete-account`. **This is the one that unblocks the Play submission** — the 14-day closed-test clock is the Android critical path.
+6. **Set `www` to redirect to the apex** in Vercel → Domains. Currently serves 200; canonical covers it, so low stakes.
+7. **Confirm the `ct` tokens appear** in App Analytics → Acquisition → Campaigns (see attribution note above).
+8. **Bing Webmaster Tools:** import from Search Console.
+9. **Validate link previews:** Facebook debugger + iMessage self-test (`og-image.jpg` is new).
+10. **PageSpeed:** re-run mobile now that DNS has cut over.
+11. **Read the privacy policy edits.** Legal text, unreviewed.
+12. **Collect real testimonials** (plan §1.5: jeremy@sanfordcollectibles.com 124 items, jeff.vargas87@gmail.com 555 items, oezkantoprak@hotmail.com price-target user).
 
 ## Deliberately not done
 - Email/waitlist capture form (skipped at the user's request — no Formspree dependency, no form on the site).
@@ -105,4 +136,6 @@ Audited state: 5/5 pages well-formed, all JSON-LD parses, exactly 1 `h1` per pag
 - **Never edit files through the GitHub web UI.** That is what destroyed the original SEO tags.
 - Vercel Hobby prohibits commercial use; with eBay Partner Network revenue this arguably needs Pro ($20/mo). Cloudflare Pages is free and permits commercial use — flagged, user chose Vercel.
 - Local `python3 -m http.server` can't reproduce `cleanUrls`, so `/privacy` 404s locally while working fine on Vercel. Test extensionless routes on a preview deploy.
-- The Claude browser tooling timed out repeatedly this session (3 × 300s). Don't burn time retrying it.
+- **The assistant cannot see this site** (browser policy blocks both hostnames; local preview tool hangs). Visual changes need a user screenshot to verify — plan for that round trip.
+- Keep Cloudflare records **unproxied (grey cloud)**. Proxying Vercel breaks its cert provisioning.
+- `aggregateRating` in `index.html` and the App Analytics `ct` tokens are both hand-maintained. Neither self-updates.
