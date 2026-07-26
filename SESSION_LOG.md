@@ -12,13 +12,17 @@
 
 ## Current State
 
-### (2026-07-26) SEO + compliance pass, branch `feat/seo-and-compliance` — committed, NOT pushed, NOT merged
+### (2026-07-26) SEO + compliance pass — MERGED to `main`, LIVE on Vercel at `aucword-site.vercel.app`
 
-Implemented from `~/Downloads/aucword-seo-plan.md` (§2 items, email-capture form deliberately skipped) plus compliance work the plan did not cover.
+Implemented from `~/Downloads/aucword-seo-plan.md` (§2 items, email-capture form deliberately skipped) plus compliance work the plan did not cover. Branch `feat/seo-and-compliance` (3 commits) merged to `main` and pushed; Vercel redeployed in ~10s.
 
-**⚠️ NOT DONE — needs a human (see "Manual steps owed" below):** Vercel import, DNS cutover, disabling GitHub Pages, Search Console, Bing, link-preview validation, PageSpeed check, collecting real testimonials.
+**Hosting: now Vercel.** Project is NOT in the `nuggget` Vercel team (that team still has only `nuggget`). **`aucword.com` DNS has NOT been cut over — it still points at GitHub Pages.**
 
-**⚠️ VISUAL RENDERING NEVER CONFIRMED.** Structure, links, JSON-LD, and tag balance are all validated programmatically, but the browser preview tool timed out three times so nobody has *looked* at the rendered pages. Do this on the first Vercel preview deploy before promoting to production.
+**Verified against the live deploy:** `cleanUrls` works (`/privacy`, `/support`, `/delete-account` all 200; `/privacy.html` 308-redirects to `/privacy`); custom 404 fires; all 5 assets 200 with correct content types; all five security headers present; font `immutable` 1yr, images 1d + `stale-while-revalidate`; new copy present; fabricated testimonials, Google Fonts, and Pendo all confirmed gone; `?ref=win` handler present.
+
+**⚠️ A `cleanUrls` trap was caught live and is worth remembering.** Before the merge, the Vercel deploy served `main` (the old site) *without* `vercel.json`, and **`/privacy` returned 404 while `/privacy.html` returned 200**. GitHub Pages resolves extensionless URLs; Vercel does not unless `cleanUrls` is set. `https://aucword.com/privacy` is the URL both app stores and the in-app Settings row point at — cutting DNS in that state would have broken the privacy policy link in both apps. Merging fixed it because `vercel.json` came with the branch. **If `vercel.json` is ever removed or the project is re-imported, re-check `/privacy` before touching DNS.**
+
+**⚠️ VISUAL RENDERING STILL NEVER CONFIRMED.** Structure, links, JSON-LD, headers, and routes are all verified programmatically and over HTTP, but nobody has *looked* at the rendered pages. The browser preview tool timed out 3×300s locally, and `aucword-site.vercel.app` is blocked by browser policy in the assistant's environment. **A human needs to open it.**
 
 ---
 
@@ -76,9 +80,9 @@ Audited state: 5/5 pages well-formed, all JSON-LD parses, exactly 1 `h1` per pag
 
 ## Manual steps owed (human required)
 
-1. **Vercel:** import the repo → add `aucword.com` + `www` → update registrar DNS → verify.
+1. ~~**Vercel:** import the repo~~ — **DONE.** Still owed: add `aucword.com` + `www` in Vercel → update registrar DNS → verify.
 2. **After DNS confirms:** disable GitHub Pages in repo settings, then delete `CNAME` (deleting it early breaks the Pages custom domain mid-propagation).
-3. **Look at the rendered pages.** Nobody has yet.
+3. **Look at the rendered pages.** Nobody has yet — see the warning above.
 4. **Search Console:** add domain property, verify by TXT, submit `https://aucword.com/sitemap.xml`, request indexing for `/`.
 5. **Bing Webmaster Tools:** import from Search Console.
 6. **Validate link previews:** Facebook debugger + iMessage self-test (`og-image.jpg` is new).
