@@ -270,6 +270,7 @@
 
     .problem-section .label,
     .steps-section .label,
+    .rating-section .label,
     .faq-section .label {
       font-size: 12px;
       font-weight: 600;
@@ -299,12 +300,14 @@
       margin: 0 auto;
     }
 
-    .steps-section.how {
+    .steps-section.how,
+    .steps-section.titled {
       padding-top: 20px;
       text-align: center;
     }
 
-    .steps-section.how h2 {
+    .steps-section.how h2,
+    .steps-section.titled h2 {
       font-size: clamp(24px, 4vw, 32px);
       font-weight: 700;
       margin-bottom: 40px;
@@ -730,7 +733,7 @@
   <h1>Stop losing eBay auctions<br/><em class="grad-text">while you're not watching.</em></h1>
 
   <p class="hero-sub">
-    Aucword puts live countdowns, price-target alerts, and your entire eBay watchlist on your home screen and Lock Screen — built for card and collectibles buyers who can't watch every auction end.
+    Aucword puts live countdowns, price-target alerts, and a home screen widget on top of the eBay watchlist you already have — built for card and collectibles buyers who can't watch every auction end.
   </p>
 
   <div class="hero-ctas">
@@ -767,7 +770,9 @@
 </section>
 
 <!-- FEATURES -->
-<section class="steps-section">
+<section class="steps-section titled">
+  <div class="label">What you get</div>
+  <h2>Live countdowns, smart alerts, and a watchlist widget.</h2>
   <div class="steps">
     <div class="step-card">
       <div class="step-icon" aria-hidden="true">⏱️</div>
@@ -790,7 +795,7 @@
 <!-- HOW IT WORKS -->
 <section class="steps-section how">
   <div class="label">How it works</div>
-  <h2>Three steps, about a minute.</h2>
+  <h2>From eBay watchlist to alert in three steps.</h2>
   <div class="steps">
     <div class="step-card">
       <div class="step-icon">1</div>
@@ -812,6 +817,7 @@
 
 <!-- RATING -->
 <section class="rating-section">
+  <div class="label">On the App Store</div>
   <a href="https://apps.apple.com/us/app/aucword-auction-notifications/id6759997767" class="rating-card" onclick="posthog.capture('app_store_clicked',{location:'rating'})">
     <span class="rating-value">5.0</span>
     <span class="rating-stars" aria-hidden="true">★★★★★</span>
