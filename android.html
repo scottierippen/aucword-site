@@ -255,6 +255,12 @@
 
     .btn-secondary:hover { box-shadow: none; border-color: var(--white); }
 
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
     .step-note { font-size: 13px; color: var(--white-30); margin-top: 12px; margin-bottom: 0; }
 
     .faq-item {
@@ -446,33 +452,12 @@
   <div class="section-block">
     <h2>How to join</h2>
 
-    <!--
-      ─────────────────────────────────────────────────────────────────────────
-      ⚠️  BEFORE MERGING: replace the two REPLACE_ME URLs below with the real
-      ones from Play Console. They are deliberately broken so a half-configured
-      page cannot quietly ship a dead link.
-
-        1. Google Group  — the tester list you created in Play Console →
-                           Testing → Closed testing → Testers.
-                           Form: https://groups.google.com/g/<group-id>
-                           The group must accept new members without approval,
-                           or self-service signup stalls here.
-
-        2. Opt-in URL    — Play Console → Testing → Closed testing → Testers →
-                           "Copy link".
-                           Form: https://play.google.com/apps/testing/<package>
-
-      grep for REPLACE_ME to find every occurrence (there are 3: two hrefs and
-      one fallback mention in the troubleshooting FAQ).
-      ─────────────────────────────────────────────────────────────────────────
-    -->
-
     <div class="step">
       <div class="step-num">1</div>
       <div>
         <h3>Join the tester group</h3>
         <p>Google Play only shows a closed beta to accounts on an approved list, and this group is that list. Tap through and choose <strong style="color:var(--white);">Join group</strong>.</p>
-        <a href="https://groups.google.com/g/REPLACE_ME_GROUP_ID" class="btn" target="_blank" rel="noopener" onclick="posthog.capture('android_beta_step_clicked',{step:'join_group'})">
+        <a href="https://groups.google.com/g/aucword-android-testers" class="btn" target="_blank" rel="noopener" onclick="posthog.capture('android_beta_step_clicked',{step:'join_group'})">
           Join the Google Group
           <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7M13 3L4 12"/></svg>
         </a>
@@ -484,12 +469,22 @@
       <div class="step-num">2</div>
       <div>
         <h3>Opt in to the test</h3>
-        <p>Once you're in the group, this page turns your account into a tester. Tap <strong style="color:var(--white);">Become a tester</strong>.</p>
-        <a href="https://play.google.com/apps/testing/REPLACE_ME_PACKAGE_NAME" class="btn" target="_blank" rel="noopener" onclick="posthog.capture('android_beta_step_clicked',{step:'opt_in'})">
-          Become a tester
-          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7M13 3L4 12"/></svg>
-        </a>
-        <p class="step-note">If it says you're not eligible, give step 1 a few minutes to propagate and reload.</p>
+        <p>Now tell Play you want in. Which link you use depends on what you're reading this on — both do the same thing.</p>
+        <!-- Play Console hands you two opt-in links for a closed test. The Play
+             Store one deep-links into the app on a phone; the web one is the
+             fallback for anyone on a desktop. The script at the end of <body>
+             reorders these so the one matching the visitor's device comes first. -->
+        <div class="btn-row" id="optin-buttons">
+          <a href="https://play.google.com/store/apps/details?id=com.aucword" class="btn" data-platform="android" target="_blank" rel="noopener" onclick="posthog.capture('android_beta_step_clicked',{step:'opt_in',via:'play_store'})">
+            Open in the Play Store
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7M13 3L4 12"/></svg>
+          </a>
+          <a href="https://play.google.com/apps/testing/com.aucword" class="btn btn-secondary" data-platform="web" target="_blank" rel="noopener" onclick="posthog.capture('android_beta_step_clicked',{step:'opt_in',via:'web'})">
+            Opt in on the web
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7M13 3L4 12"/></svg>
+          </a>
+        </div>
+        <p class="step-note">Scroll to the bottom of the Play listing for the testing section, or tap <strong style="color:var(--white-60);">Become a tester</strong> on the web page. If it says you're not eligible, give step 1 a few minutes to propagate and reload.</p>
       </div>
     </div>
 
@@ -497,7 +492,7 @@
       <div class="step-num">3</div>
       <div>
         <h3>Install from Google Play</h3>
-        <p>The opt-in page gives you a download link straight to the Play Store listing. Install it like any other app — updates arrive automatically.</p>
+        <p>Once you're opted in, Aucword installs like any other app — and updates arrive automatically for as long as you're in the test.</p>
         <p class="step-note">Newly opted-in accounts sometimes wait a few hours before the listing appears. If Play says the app isn't available yet, it usually is by the next time you look.</p>
       </div>
     </div>
@@ -557,7 +552,7 @@
 
     <details class="faq-item" ontoggle="if(this.open)posthog.capture('faq_opened',{question:'leave_beta',page:'android'})">
       <summary>How do I leave the beta?</summary>
-      <div class="faq-answer">Open the <a href="https://play.google.com/apps/testing/REPLACE_ME_PACKAGE_NAME" target="_blank" rel="noopener" onclick="posthog.capture('android_beta_step_clicked',{step:'leave'})">opt-in link</a> again and choose "Leave the program", then uninstall the app. You can leave the Google Group whenever you like too. If you'd also like your Aucword account deleted, the <a href="/delete-account" onclick="posthog.capture('policy_link_clicked',{policy:'delete_account'})">account deletion page</a> covers that.</div>
+      <div class="faq-answer">Open the <a href="https://play.google.com/apps/testing/com.aucword" target="_blank" rel="noopener" onclick="posthog.capture('android_beta_step_clicked',{step:'leave'})">web opt-in page</a> again and choose "Leave the program", then uninstall the app. You can leave the Google Group whenever you like too. If you'd also like your Aucword account deleted, the <a href="/delete-account" onclick="posthog.capture('policy_link_clicked',{policy:'delete_account'})">account deletion page</a> covers that.</div>
     </details>
 
     <details class="faq-item" ontoggle="if(this.open)posthog.capture('faq_opened',{question:'public_release',page:'android'})">
@@ -578,6 +573,26 @@
   </div>
 
 </div>
+
+<script>
+  // Put the opt-in link matching the visitor's device first and make it the
+  // filled button. Both links work everywhere, so this is presentation only —
+  // with JS off the Play Store link leads, which matches the page's advice to
+  // do this on your phone.
+  (function () {
+    try {
+      if (/Android/i.test(navigator.userAgent)) return;
+      var row = document.getElementById('optin-buttons');
+      if (!row) return;
+      var play = row.querySelector('[data-platform="android"]');
+      var web = row.querySelector('[data-platform="web"]');
+      if (!play || !web) return;
+      row.insertBefore(web, play);
+      web.classList.remove('btn-secondary');
+      play.classList.add('btn-secondary');
+    } catch (e) { /* no-op: the static order is already usable */ }
+  })();
+</script>
 
 <footer>
   <p>&copy; 2026 Aucword. All rights reserved.</p>
