@@ -83,17 +83,8 @@
 
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 
-    .nav-logo-mark {
-      width: 32px; height: 32px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, var(--lavender), var(--peach));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 16px;
-      color: var(--navy);
-    }
+    /* Matches the homepage nav: the real wordmark asset, not a stand-in initial. */
+    .nav-logo img { height: 28px; width: auto; }
 
     .nav-logo span {
       font-size: 18px;
@@ -267,7 +258,7 @@
 
 <nav>
   <a href="/" class="nav-logo">
-    <div class="nav-logo-mark">A</div>
+    <img src="/logo.png" width="400" height="211" alt="Aucword" />
     <span>Aucword</span>
   </a>
   <a href="/" class="nav-back">&larr; Back to home</a>
