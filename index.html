@@ -272,6 +272,39 @@
       animation: fadeUp 0.6s ease-out 0.4s both;
     }
 
+    .hero-note a {
+      color: var(--lavender);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(197,184,245,0.3);
+    }
+
+    .hero-note a:hover { border-bottom-color: var(--lavender); }
+
+    /* ─── ANDROID BETA CTA ─── */
+    .hero-android {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 12px 20px;
+      background: var(--navy-light);
+      border: 1px solid rgba(197,184,245,0.35);
+      border-radius: 12px;
+      color: var(--white-90);
+      text-decoration: none;
+      font-size: 15px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .hero-android:hover {
+      border-color: var(--lavender);
+      transform: translateY(-1px);
+    }
+
+    .hero-android strong { color: var(--lavender); font-weight: 700; }
+    .hero-android-icon { font-size: 17px; line-height: 1; }
+    .hero-android[hidden] { display: none; }
+
     /* ─── PHONE SCREENSHOT ─── */
     .phone-wrap {
       display: flex;
@@ -698,10 +731,10 @@
           },
           {
             "@type": "Question",
-            "name": "When is the Android version coming out?",
+            "name": "Is there an Android version?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "An Android version is in active development. Follow @aucword on X, Instagram, or TikTok and we will post the day it lands."
+              "text": "Aucword for Android is in closed testing on Google Play and open to join. Joining takes two steps — join the tester Google Group, then opt in on Google Play. Full instructions are at https://aucword.com/android. A public release follows once the closed test wraps up."
             }
           },
           {
@@ -747,6 +780,21 @@
         });
       } catch (e) { /* no-op: attribution must never break the page */ }
     })();
+
+    // Android visitors can't use the App Store button that dominates this page,
+    // so surface the closed-beta path to them specifically. Everyone else keeps
+    // a single unambiguous CTA. Runs on DOMContentLoaded because the target
+    // element lives further down the document than this script.
+    (function () {
+      try {
+        if (!/Android/i.test(navigator.userAgent)) return;
+        posthog.register({ visitor_platform: 'android' });
+        document.addEventListener('DOMContentLoaded', function () {
+          var el = document.getElementById('hero-android');
+          if (el) el.hidden = false;
+        });
+      } catch (e) { /* no-op */ }
+    })();
   </script>
 </head>
 <body>
@@ -761,8 +809,11 @@
     <span class="dot"></span>
     Available on iOS
   </a>
-  <!-- ANDROID LAUNCH: when the Play listing is live, replace the badge above with a
-       two-badge row and swap in play_store_clicked. Copy is ready in /support.html FAQ. -->
+  <!-- ANDROID: currently in closed testing — the join flow lives on /android and is
+       surfaced in the hero (Android UAs only), the hero note, the FAQ, and the footer.
+       The badge above stays iOS-only on purpose: a closed beta with limited spots
+       shouldn't read as "available on Android" in the nav. When the Play listing goes
+       public, replace this badge with a two-badge row and add play_store_clicked. -->
 </nav>
 
 <!-- HERO -->
@@ -792,7 +843,17 @@
       <span><strong>5.0</strong> from 4 ratings on the App Store</span>
     </a>
 
-    <p class="hero-note">Free · iOS 17+ · Android coming soon · eBay account required</p>
+    <!-- Android visitors get their own line rather than a rewritten primary CTA:
+         iOS is the shipping product, the beta has limited spots, and a two-button
+         hero splits attention for the 90% of traffic that can't use the beta.
+         Hidden by default and revealed for Android UAs by the script below — the
+         static link in .hero-note stays as the no-JS path. -->
+    <a href="/android" class="hero-android" id="hero-android" hidden onclick="posthog.capture('android_beta_cta_clicked',{location:'hero'})">
+      <span class="hero-android-icon" aria-hidden="true">🤖</span>
+      <span>On Android? <strong>Join the closed beta</strong> &rarr;</span>
+    </a>
+
+    <p class="hero-note">Free · iOS 17+ · <a href="/android" onclick="posthog.capture('android_beta_cta_clicked',{location:'hero_note'})">Android beta open</a> · eBay account required</p>
   </div>
 
   <!-- App screenshot -->
@@ -909,8 +970,8 @@
   </details>
 
   <details class="faq-item" ontoggle="if(this.open)posthog.capture('faq_opened',{question:'android'})">
-    <summary>When is the Android version coming out?</summary>
-    <div class="faq-answer">An Android version is in active development. Follow <a href="https://x.com/aucword" onclick="posthog.capture('social_clicked',{network:'x',location:'faq'})">@aucword</a> and we'll post the day it lands.</div>
+    <summary>Is there an Android version?</summary>
+    <div class="faq-answer">Aucword for Android is in closed testing on Google Play right now, and you can join it. It takes joining a tester group and opting in — the <a href="/android" onclick="posthog.capture('android_beta_cta_clicked',{location:'faq'})">Android beta page</a> walks through both steps. A public release follows once the test wraps up.</div>
   </details>
 
   <details class="faq-item" ontoggle="if(this.open)posthog.capture('faq_opened',{question:'delete_account'})">
@@ -934,6 +995,7 @@
 <footer>
   <p>&copy; 2026 Aucword. All rights reserved.</p>
   <div class="footer-links">
+    <a href="/android" onclick="posthog.capture('android_beta_cta_clicked',{location:'footer'})">Android beta</a>
     <a href="/support" onclick="posthog.capture('support_link_clicked',{location:'footer'})">Support</a>
     <a href="/privacy" onclick="posthog.capture('policy_link_clicked',{policy:'privacy'})">Privacy</a>
     <a href="/delete-account" onclick="posthog.capture('policy_link_clicked',{policy:'delete_account'})">Delete account</a>
